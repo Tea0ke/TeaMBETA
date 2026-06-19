@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<title>be1.ru</title>
+</head>
+<body>
+<p>&lt;!DOCTYPE html&gt;</p>
+
+<p>&lt;html lang=&quot;ru&quot;&gt;</p>
+
+<p>&lt;head&gt;</p>
+
+<p>&lt;meta charset=&quot;UTF-8&quot;&gt;</p>
+
+<p>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</p>
+
+<p>&lt;title&gt;TeaM&lt;/title&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;style&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>*{box-sizing:border-box}</p>
+
+<p>&nbsp;</p>
+
+<p>html,body{</p>
+
+<p>margin:0;</p>
+
+<p>height:100%;</p>
+
+<p>font-family:Arial;</p>
+
+<p>background:#eef2ff;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>#loader{</p>
+
+<p>position:fixed;</p>
+
+<p>inset:0;</p>
+
+<p>display:flex;</p>
+
+<p>flex-direction:column;</p>
+
+<p>justify-content:center;</p>
+
+<p>align-items:center;</p>
+
+<p>background:#2563eb;</p>
+
+<p>color:white;</p>
+
+<p>z-index:9999;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>.bar{</p>
+
+<p>width:200px;</p>
+
+<p>height:6px;</p>
+
+<p>background:rgba(255,255,255,0.3);</p>
+
+<p>border-radius:10px;</p>
+
+<p>overflow:hidden;</p>
+
+<p>margin-top:15px;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>.bar div{</p>
+
+<p>height:100%;</p>
+
+<p>width:0%;</p>
+
+<p>background:white;</p>
+
+<p>transition:0.3s;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>.app{</p>
+
+<p>display:none;</p>
+
+<p>height:100vh;</p>
+
+<p>padding:12px;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>textarea{</p>
+
+<p>width:100%;</p>
+
+<p>height:120px;</p>
+
+<p>padding:12px;</p>
+
+<p>border-radius:12px;</p>
+
+<p>border:1px solid #ccc;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>button{</p>
+
+<p>width:100%;</p>
+
+<p>padding:12px;</p>
+
+<p>margin-top:10px;</p>
+
+<p>border:none;</p>
+
+<p>border-radius:12px;</p>
+
+<p>background:#2563eb;</p>
+
+<p>color:white;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>#out{</p>
+
+<p>margin-top:10px;</p>
+
+<p>white-space:pre-wrap;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/style&gt;</p>
+
+<p>&lt;/head&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;body&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;!-- LOADER --&gt;</p>
+
+<p>&lt;div id=&quot;loader&quot;&gt;</p>
+
+<p>&lt;div&gt;TeaM загружается...&lt;/div&gt;</p>
+
+<p>&lt;div class=&quot;bar&quot;&gt;&lt;div id=&quot;bar&quot;&gt;&lt;/div&gt;&lt;/div&gt;</p>
+
+<p>&lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;!-- APP --&gt;</p>
+
+<p>&lt;div class=&quot;app&quot; id=&quot;app&quot;&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;h2&gt;TeaM&lt;/h2&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;textarea id=&quot;input&quot; placeholder=&quot;2+2*5&quot;&gt;&lt;/textarea&gt;</p>
+
+<p>&lt;button onclick=&quot;solve()&quot;&gt;Решить&lt;/button&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;div id=&quot;out&quot;&gt;Готово&lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/div&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;script&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>let cacheReady = false;</p>
+
+<p>&nbsp;</p>
+
+<p>/* ===== ЗАГРУЗКА РЕСУРСОВ ===== */</p>
+
+<p>async function loadResources(){</p>
+
+<p>&nbsp;</p>
+
+<p>let bar=document.getElementById(&quot;bar&quot;);</p>
+
+<p>let progress=0;</p>
+
+<p>&nbsp;</p>
+
+<p>// список файлов</p>
+
+<p>const files=[</p>
+
+<p>&quot;https://cdn.jsdelivr.net/npm/mathjs@14/lib/browser/math.js&quot;</p>
+
+<p>];</p>
+
+<p>&nbsp;</p>
+
+<p>for(let i=0;i&lt;files.length;i++){</p>
+
+<p>&nbsp;</p>
+
+<p>await fetch(files[i]); // скачали</p>
+
+<p>&nbsp;</p>
+
+<p>progress += 100/files.length;</p>
+
+<p>bar.style.width = progress+&quot;%&quot;;</p>
+
+<p>&nbsp;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>cacheReady = true;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>/* ===== START ===== */</p>
+
+<p>window.onload=async ()=&gt;{</p>
+
+<p>&nbsp;</p>
+
+<p>let already = localStorage.getItem(&quot;team_cached&quot;);</p>
+
+<p>&nbsp;</p>
+
+<p>if(!already){</p>
+
+<p>&nbsp;</p>
+
+<p>await loadResources();</p>
+
+<p>localStorage.setItem(&quot;team_cached&quot;,&quot;1&quot;);</p>
+
+<p>&nbsp;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>// быстрый старт</p>
+
+<p>setTimeout(()=&gt;{</p>
+
+<p>document.getElementById(&quot;loader&quot;).style.display=&quot;none&quot;;</p>
+
+<p>document.getElementById(&quot;app&quot;).style.display=&quot;block&quot;;</p>
+
+<p>},500);</p>
+
+<p>&nbsp;</p>
+
+<p>};</p>
+
+<p>&nbsp;</p>
+
+<p>/* ===== LOGIC ===== */</p>
+
+<p>function solve(){</p>
+
+<p>&nbsp;</p>
+
+<p>let t=document.getElementById(&quot;input&quot;).value;</p>
+
+<p>let out=document.getElementById(&quot;out&quot;);</p>
+
+<p>&nbsp;</p>
+
+<p>try{</p>
+
+<p>out.innerText=&quot;Ответ: &quot;+eval(t);</p>
+
+<p>}catch{</p>
+
+<p>out.innerText=&quot;Ошибка&quot;;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>}</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/script&gt;</p>
+
+<p>&nbsp;</p>
+
+<p>&lt;/body&gt;</p>
+
+<p>&lt;/html&gt;</p>
+</body>
+</html>
